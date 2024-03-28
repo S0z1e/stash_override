@@ -3,9 +3,6 @@ desc: 开启YouTube广告拦截, 后台播放, 请勿与其他YouTube脚本同�
 http:
   mitm:
     - "-redirector*.googlevideo.com"
-    - "*.googlevideo.com"
-    - "www.youtube.com"
-    - "s.youtube.com"
     - "youtubei.googleapis.com"
   script:
     - match: ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting)\?
@@ -20,16 +17,10 @@ http:
       require-body: true
       binary-mode: true
       timeout: 10
-  rewrite:
-    - (^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?)&ctier=L(&.+?),ctier,(.+) $1$2$3 302
-    - ^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad - reject-200
-    - ^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads - reject-200
-    - ^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) - reject-200
-    - ^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext - reject-200
 script-providers:
   yt1:
-    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
+    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.beta.js
     interval: 86400
   yt2:
-    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.request.preview.js
+    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.request.beta.js
     interval: 86400
